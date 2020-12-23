@@ -28,4 +28,11 @@ describe("TodoList E2E테스트", () => {
   it("todo list의 x버튼을 이용해서 해당 엘리먼트를 삭제한다", () => {
     cy.get("button.destroy").eq(-1).click({ force: true }).should("not.exist");
   });
+
+  it("todo list의 item갯수를 count한 갯수를 리스트의 하단에 보여주기", () => {
+    cy.get(".todo-count strong").should("text", 0);
+    cy.get(".new-todo").type(`count test{enter}`);
+    cy.get(".todo-count strong").should("text", 1);
+    cy.get("button.destroy").eq(-1).click({ force: true }).should("not.exist");
+  });
 });
