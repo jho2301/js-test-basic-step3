@@ -15,4 +15,13 @@ describe("TodoList E2E테스트", () => {
     cy.get("#todo-list li").eq(-1).should("have.class", "completed");
     // cy.get("#todo-list li .toggle").eq(-1).should("have.attr", "checked");
   });
+
+  //(li tag 에 editing class 추가)
+  // 단 이때 수정을 완료하지 않은 상태에서 esc키를 누르면 수정되지 않은 채로 다시 view 모드로 복귀
+  it("todo list를 더블클릭했을 때 input 모드로 변경한다", () => {
+    cy.get(".label").eq(-1).dblclick();
+    cy.get(".editing").eq(-1).should("exist");
+    cy.get(".edit").eq(-1).type("{esc}", { force: true });
+    cy.get("#todo-list li").eq(-1).should("not.have.class", "editing");
+  });
 });
