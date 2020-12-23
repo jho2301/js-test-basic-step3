@@ -24,4 +24,8 @@ describe("TodoList E2E테스트", () => {
     cy.get(".edit").eq(-1).type("{esc}", { force: true });
     cy.get("#todo-list li").eq(-1).should("not.have.class", "editing");
   });
+
+  it("todo list의 x버튼을 이용해서 해당 엘리먼트를 삭제한다", () => {
+    cy.get("button.destroy").eq(-1).click({ force: true }).should("not.exist");
+  });
 });
