@@ -35,4 +35,20 @@ describe("TodoList E2E테스트", () => {
     cy.get(".todo-count strong").should("text", 1);
     cy.get("button.destroy").eq(-1).click({ force: true }).should("not.exist");
   });
+
+  it("해야할 일과, 완료한 일을 클릭하면 해당 상태의 아이템만 보여주기", () => {
+    const text = "FILTER TEST";
+    cy.get(".new-todo").type(`${text}{enter}`);
+    cy.get(".filters li a").eq(1).click({ force: true });
+    cy.contains(text).should("exist");
+    cy.get(".filters li a").eq(2).click({ force: true });
+    cy.contains(text).should("not.exist");
+
+    cy.get(".filters li a").eq(0).click({ force: true });
+    cy.get("li .toggle").click({ force: true });
+    cy.get(".filters li a").eq(1).click({ force: true });
+    cy.contains(text).should("not.exist");
+    cy.get(".filters li a").eq(2).click({ force: true });
+    cy.contains(text).should("exist");
+  });
 });
